@@ -1,8 +1,9 @@
 from flask import render_template, redirect
 from flask import request
 from flask_login import login_user, logout_user, login_required
-from models import User
 from app import app
+from app.models import User
+
 from . import mysql
 #sample user
 user = User('admin','password')
@@ -40,3 +41,20 @@ def logout():
 @login_required
 def home(username):
     return "Username: "+username
+
+	
+@app.route("/bids/<pname>")
+def bids(pname):
+	#fetch details of pname and send it in this json
+	project = {'name':pname}
+	return render_template('bid.html', project = project)
+	
+@app.route("/makebid/<pname>")
+def makebid(pname):
+	#get required details needed for the project and accordingly populate the form queries
+	project = {'name':pname}
+	return render_template('makebid.html', project = project)
+	
+@app.route("/bidplaced", methods=['POST'])
+def bidplaced():
+	return "A"

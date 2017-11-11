@@ -5,7 +5,6 @@ from flask_login import LoginManager
 #Initialize the app
 app = Flask(__name__)
 
-
 #Load the config file
 app.config.from_pyfile('../config.py')
 

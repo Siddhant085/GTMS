@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head><title>BID</title>
+	<link rel="stylesheet" href= "{{ url_for('static',filename='css/bootstrap.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='css/w3.css') }}">
+	<script src ="{{ url_for('static',filename='js/jquery-3.2.0.min.js') }}"></script>
+	<script>
+	function place(){
+		data1 = '1'
+		data2 = '2'
+		data = {'A':data1, 'B':data2}
+		$.ajax({
+			url: "/bidplaced",
+			data:  JSON.stringify(data),
+			type: "POST",
+			contentType: 'application/json;charset=UTF-8',
+			success: update_success,
+			error: function(error) {
+				console.log(error);
+			}
+		});
+	
+	}
+	function update_success(){
+		alert("SUCCESS")
+	}
+
+	</script>
+</head>
+<body>
+	<form>
+  <div class="form-group">
+    <label for="email">Email address:</label>
+    <input type="text" class="form-control" id="email">
+  </div>
+  <div class="form-group">
+    <label for="pwd">Password:</label>
+    <input type="text" class="form-control" id="pwd">
+  </div>
+
+  <button type="button" class="btn btn-default" onclick="place()">Submit</button>
+</form>
+
+</body>
+</html>

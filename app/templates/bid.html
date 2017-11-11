@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head><title>BID</title>
+	<link rel="stylesheet" href= "{{ url_for('static',filename='css/bootstrap.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='css/w3.css') }}">
+	<script src ="{{ url_for('static',filename='js/jquery-3.2.0.min.js') }}"></script>
+</head>
+<body>
+	<div class="container">
+	  <h2>Bids</h2>
+	  <p>All bids for the {{project.name}} are listed here!</p>            
+	  <table class="table table-bordered">
+		<thead>
+		  <tr>
+			<th>Detail1</th>
+			<th>Detail2</th>
+			<th>Detail3</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+			<td>John</td>
+			<td>Doe</td>
+			<td>john@example.com</td>
+		  </tr>
+		  <tr>
+			<td>Mary</td>
+			<td>Moe</td>
+			<td>mary@example.com</td>
+		  </tr>
+		  <tr>
+			<td>July</td>
+			<td>Dooley</td>
+			<td>july@example.com</td>
+		  </tr>
+		</tbody>
+	  </table>
+	</div>
+	
+	<a href="/makebid/{{project.name}}">MAKE BID</a>
+
+</body>
+</html>
