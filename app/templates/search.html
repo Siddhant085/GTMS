@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head><title> SEARCH CONTRACTS </title>
+	<link rel="stylesheet" href= "{{ url_for('static',filename='css/bootstrap.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='css/w3.css') }}">
+	<script src ="{{ url_for('static',filename='js/jquery-3.2.0.min.js') }}"></script>
+	<script>
+	function search(){
+		data1 = document.getElementById('method').value
+		data2 = document.getElementById('str').value
+		
+		data = {'method':data1, 'text':data2}
+		$.ajax({
+			url: "/search_by",
+			data:  JSON.stringify(data),
+			type: "POST",
+			contentType: 'application/json;charset=UTF-8',
+			success: update_success,
+			error: function(error) {
+				console.log(error);
+			}
+		});
+	
+	}
+	function update_success(text){
+		// need to parse this text as json and accordingly update the search results in this function
+		alert(text)
+	}
+
+	</script>
+</head>
+<body>
+	METHOD
+	<input type="text" name="METHOD" id="method"></input>
+	</br>TEXT<input type="text" name="TEXT" id= "str"></input>
+	</br><input type="button" value="submit" onclick="search()"></input>
+	
+</body>
+</html>
