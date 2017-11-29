@@ -115,17 +115,22 @@ def showProject(id):
 @app.route('/project/title/<pname>', methods=['GET'])
 def disp_project(pname):
 	#get project by project name
-	data = Database.getProject(pname)
-	'''
-	if curent_user.access == "admin":
-		#if allocated send updates and specify type
-		#else send tenders and specify type
-		pass
+	data = list(Database.getProject(pname))
+	updates=[]
+	tenders=[]
+	print(data)
+	if (current_user.access == "admin"):
+		if(data[-1]=='a'):#if allocated send updates and specify type
+			type='a'
+		else:#else send tenders and specify type
+			type='w'
+			#tenders = Database.
+			
 	else:
 		#dont send data but send 'contractor' as type
-		pass
-	'''
-	return render_template('proj_info.html')
+		type='c'
+	print(type)
+	return render_template('proj_info.html', project = data, type= type, updates=updates, tenders=tenders)
 	
 @app.route('/check', methods=['POST'])
 def checkbid():
@@ -143,12 +148,9 @@ def admin():
 @app.route('/load_proj_data', methods=['POST'])
 def load_proj_data():
 	status = request.json['status']
-	if(status=="allocated"):
-		pass
-	else:
-		pass
-	return ""
-
+	data = Database.getAlloProject(status)	
+	print((data))
+	return jsonify(list(data))
 
 @app.route('/contractor/<uname>', methods=['GET'])
 @login_required

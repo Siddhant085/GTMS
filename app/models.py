@@ -84,7 +84,15 @@ class Database():
         except Exception as e:
             print(e)
             return False
-
+    def getAlloProject(status):
+        cur = mysql.connection.cursor()
+        try:
+            cur.execute("Select * from project where project_status = '"+status+"'")
+            data = cur.fetchall()
+            return data
+        except Exception as e:
+            print(e)
+            return False
     def addBid(data):
         cur = mysql.connection.cursor()
         cur.execute("insert into bidding(vender_id,tender_id, \

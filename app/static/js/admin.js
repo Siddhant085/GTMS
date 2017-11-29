@@ -1,6 +1,6 @@
 $(document).ready(allocated);
 function allocated(){
-	data = {'status':'allocated'}
+	data = {'status':'a'}
 	$.ajax({
 		url: "/load_proj_data",
 		data:  JSON.stringify(data),
@@ -17,7 +17,7 @@ function load_allocated_proj(data){
 	loadProjectData(data, document.getElementById('allo_table'))
 }
 function waiting(){
-	data = {'status':'waiting'}
+	data = {'status':'w'}
 	$.ajax({
 		url: "/load_proj_data",
 		data:  JSON.stringify(data),
@@ -33,20 +33,20 @@ function waiting(){
 function load_waiting_proj(data){
 	loadProjectData(data, document.getElementById('wait_table'))
 }
-function loadProjectData(t, tab){
-	alert(data)
-	data = JSON.parse(t)
+function loadProjectData(data, tab){
+	console.log(data)
 	for(i=0; i<data.length; ++i){
-		a = document.createElement('a')
-		a.href = "/project/"+data[i][0]
 		tr = document.createElement('tr')
 		for (var j=0; j<7; ++j){
 			td = document.createElement('td')
-			td.appendChild(document.createTextNode(data[i][j]))
+			a = document.createElement('a')
+			a.href = "/project/title/"+data[i][0]
+			a.appendChild(document.createTextNode(data[i][j]))
+			td.appendChild(a)
 			tr.appendChild(td)
 		}
-		a.appendChild(tr)
-		tab.appendChild(a)
+		
+		tab.appendChild(tr)
 	}
 }
 

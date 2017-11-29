@@ -5,41 +5,43 @@
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="{{ url_for('static',filename='css/font-awesome.min.css')}}"> 
-
-<script type="text/javascript" src="{{ url_for('static',filename='js/gloco.js' )  }}"></script>
+<script type="text/JavaScript" src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
 
 <script type="text/javascript">
-  function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 8,
-          center: {lat: 13.00, lng: 77.60}
-        });
-        var geocoder = new google.maps.Geocoder();
- 
-        document.getElementById('submit').addEventListener('click', function() {
-          geocodeAddress(geocoder, map);
-        });
-      }
- 
-      function geocodeAddress(geocoder, resultsMap) {
-        var address = document.getElementById('address').value;
-        geocoder.geocode({'address': address}, function(results, status) {
-          if (status === 'OK') {
-            resultsMap.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
-              map: resultsMap,
-              position: results[0].geometry.location
-            });
-            var lat = results[0].geometry.location.lat(),
-                lng = results[0].geometry.location.lng();
-             $('#longi').val(lng);
-              $('#lati').val(lat);
-          } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-          }
-        });
-      }
+	$(document).ready(function(){
+	typ = '{{ type|tojson }}'
+	console.log(typ)
+	if(typ=='"a"'){
+		//display the project status for the admin
+		//marquee can be used for this 
+		console.log("ALLO")
+	}
+	else if(typ=='"w"'){
+		//display the tenders page for the admin
+		document.getElementById('tenders').style.display = 'block'
+		tab = document.getElementById('tentable')
+		data = JSON.parse('{{ tenders }}')
+		for(var i=0; i<data.length; ++i){
+			tr = document.createElement('tr')
+			for (var j=0; j<4; ++j){
+				td = document.createElement('td')
+				td.appendChild(document.createTextNode(data[i][j]))
+				tr.appendChild(td)
+			}
+			tab.appendChild(tr)
+		}
+	}
+	else{
+		//Display make bid page for the contractor
+		but = document.createElement('input')
+		but.type = 'button'
+		but.innerHTML = "MAKE BID"
+		but.onclick = '' //go to make bid page
+		document.getElementById('m').appendChild(but)
+	}
+	});
 </script>
+
 <style>
 html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 .w3-sidebar {
@@ -63,26 +65,22 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
-<div class="w3-main" style="margin-left:250px">
+<div id='m' class="w3-main" style="margin-left:250px">
 
   <div class="w3-row w3-padding-64">
     <div class="w3-twothird w3-container">
-      <h1 class="w3-text-teal" style="float: left">Title :  <h2 class="w3-bar-item" style="float: right" id="title"> </h1></h1>
+      <h1 class="w3-text-teal" style="float: left">Title :  <h2 class="w3-bar-item" style="float: right" id="title"> {{project[0]}} </h1></h1>
     </div>
   </div>
    <div class="w3-row">
     <div class="w3-twothird w3-container">
-      <h1 class="w3-text-teal" style="float: left">State :  <h2 class="w3-bar-item" style="float: right" id="state">Escobar </h1></h1>
+      <h1 class="w3-text-teal" style="float: left">State :  <h2 class="w3-bar-item" style="float: right" id="state"> {{project[2]}}</h1></h1>
     </div>
   </div>
 
-<div class="w3-third w3-container">
-      <div class="w3-border w3-padding-large w3-padding-64 w3-center"  style="float: right" id="gmap"> </div>
-    </div>
-
    <div class="w3-row">
     <div class="w3-twothird w3-container">
-      <h1 class="w3-text-teal" style="float: left">District : <h2 class="w3-bar-item" style="float: right" id="address">Bangalore </h2></h1>
+      <h1 class="w3-text-teal" style="float: left">District : <h2 class="w3-bar-item" style="float: right" id="address"> {{project[3]}}</h2></h1>
     </div>
   </div>
 
@@ -90,32 +88,50 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
   <div class="w3-row">
     <div class="w3-twothird w3-container">
       <h1 class="w3-text-teal" style="float: left">Project category :</h1>
-      <h2 class="w3-bar-item" style="float: right" id="project">sdvjnkj </h2>
+      <h2 class="w3-bar-item" style="float: right" id="project">{{project[4]}}</h2>
     </div>
   </div>
 
      <div class="w3-row">
     <div class="w3-twothird w3-container">
       <h1 class="w3-text-teal" style="float: left">Bid start-date :</h1>
-      <h2 class="w3-bar-item" style="float: right" id="bid_start"><b>12/10/2011</b></h2>
+      <h2 class="w3-bar-item" style="float: right" id="bid_start">{{project[5]}}</h2>
     </div>
   </div>
 
   <div class="w3-row">
     <div class="w3-twothird w3-container">
       <h1 class="w3-text-teal" style="float: left">Bid end-date :</h1>
-      <h2 class="w3-bar-item" style="float: right" id="bid_end"><b>13/11/2011</b></h2>
+      <h2 class="w3-bar-item" style="float: right" id="bid_end">{{project[6]}}</h2>
     </div>
   </div>
 
   <div class="w3-row w3-padding-24">
     <div class="w3-twothird w3-container">
       <h1 class="w3-text-teal">Description :</h1>
-      <p class="w3-bar-item" id="description" >Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum
-        dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <p class="w3-bar-item" id="description" >{{project[7]}}</p>
     </div>
   </div>
-
+  
+	<div style='display:none' id='tenders' class="container">
+	  <h2>Tenders</h2>
+	  <p>The tenders to this project are displayed here</p>            
+	  <table class="table table-striped">
+		<thead>
+		  <tr>
+			<th>Tender ID</th>
+			<th>Amount</th>
+			<th>Pub Date</th>
+			<th>Last Date</th>
+		</thead>
+		<tbody id='tentable'>
+		  
+		</tbody>
+	  </table>
+	</div>
+	<br><br><br>
+  
+<!--
   <div class="w3-row">
     <div class="w3-twothird w3-container">
       <h1 class="w3-text-teal" >Updates :</h1>
@@ -197,7 +213,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 </table>
 </marquee>  
  
-
+-->
 
 <!-- END MAIN -->
 </div>
