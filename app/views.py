@@ -11,9 +11,13 @@ from . import mysql
 def index():
 	return render_template("index.html")
 
+@app.route('/contactUs')
+def contactUs():
+	return render_template("contact_us.html")
+
 @app.route('/about')
 def about():
-	return render_template("about.html")
+	return render_template("about_us.html")
 
 @app.route('/signup',methods=['GET','POST'])
 def signup():
