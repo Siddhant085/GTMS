@@ -213,4 +213,8 @@ def makeBid():
     if Database.addBid(data):
         return "Data added successfully"
     return "error",404
-
+	
+@app.route('/approvetender', methods=['POST'])
+def approvetender():
+    data = request.get_json()
+	pass

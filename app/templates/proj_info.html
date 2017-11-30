@@ -39,11 +39,15 @@
 			console.log(data)
 			for(var i=0; i<data.length; ++i){
 				var tr = document.createElement('tr')
-				for (var j=0; j<4; ++j){
+				for (var j=1; j<4; ++j){
 					var td = document.createElement('td')
 					td.appendChild(document.createTextNode(data[i][j]))
 					tr.appendChild(td)
 				}
+				but = document.createElement('button')
+				but.className = 'btn btn-default'
+				but.innerHTML = 'Approve'
+				but.onclick = approvetender(data[i][0])
 				tab.appendChild(tr)
 			}
 		}
@@ -74,7 +78,19 @@
 			}
 		}
 	});
-	
+	function approvetender(tid){
+		data = {'tender_id':tid}
+		$.ajax({
+			url: "/approvetender",
+			data:  JSON.stringify(data),
+			type: "POST",
+			contentType: 'application/json;charset=UTF-8',
+			success: update_success,
+			error: function(error) {
+				console.log(error);
+			}
+		});
+	}
 	function placeUpd(){
 		data1 = document.getElementById('wd').value
 		data2 = document.getElementById('desc').value
@@ -219,7 +235,6 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
     <table class="table table-striped">
     <thead>
       <tr>
-      <th>Tender ID</th>
       <th>Amount</th>
       <th>Pub Date</th>
       <th>Last Date</th>
