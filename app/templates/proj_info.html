@@ -79,7 +79,20 @@
 		data1 = document.getElementById('wd').value
 		data2 = document.getElementById('desc').value
 		data3 = '{{project[0]}}'
-		data = {'wd':data1, 'desc':data2, project:data3}
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+
+		var yyyy = today.getFullYear();
+		if(dd<10){
+			dd='0'+dd;
+		} 
+		if(mm<10){
+			mm='0'+mm;
+		} 
+		var today = yyyy+'-'+mm+'-'+dd;
+		alert(today)
+		data = {'percentage':data1, 'delays':data2, 'project':data3, 'date':today}
 		$.ajax({
 			url: "/makeUpdate",
 			data:  JSON.stringify(data),
@@ -108,7 +121,7 @@
 		if(mm<10){
 			mm='0'+mm;
 		} 
-		var today = dd+'/'+mm+'/'+yyyy;
+		var today = yyyy+'-'+mm+'-'+dd;
 		alert(today)
 		data3 = '{{project[0]}}'
 		data = {'est_amt':data1, 'tender_last_date':data2, 'tender_pub_date':today, 'project': data3}
