@@ -30,16 +30,17 @@
 		res = document.getElementById('result')
 		res.style.display = "block"
 		d = document.getElementById('tab')
+		d.innerHTML=""
 		for(var i=0; i<data.length; ++i){
 			tr = document.createElement('tr')
-      console.log(data[i][0]);
-      tr.onclick = function(){console.log($(event.target).children());window.location="/project/title"+$(event.target).children()[0].text()}
+			console.log(data[i][0]);
+			tr.onclick = function(){console.log($(event.target).children());window.location="/project/title"+$(event.target).children()[0].text()}
 			for (var j=0; j<7; ++j){
 				td = document.createElement('td')
 				td.appendChild(document.createTextNode(data[i][j]))
 				tr.appendChild(td)
 			}
-			tab.appendChild(tr)
+			d.appendChild(tr)
 		}
 	}
 	$(document).ready(function(){
