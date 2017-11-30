@@ -21,7 +21,9 @@
 		//display the tenders page for the admin
 		document.getElementById('tenders').style.display = 'block'
 		tab = document.getElementById('tentable')
-		data = JSON.parse('{{ tenders }}')
+		console.log('{{ tenders }}')
+		data = JSON.parse('{{ tenders|tojson|safe }}')
+		console.log(data)
 		for(var i=0; i<data.length; ++i){
 			tr = document.createElement('tr')
 			for (var j=0; j<4; ++j){
