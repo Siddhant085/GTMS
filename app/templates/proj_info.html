@@ -12,12 +12,12 @@
 	typ = '{{ type|tojson }}'
 	console.log(typ)
   console.log("{{makeBid}}")
-	if(typ=='"a"'){
+	if(typ=='"aa"'){
 		//display the project status for the admin
 		//marquee can be used for this 
 		console.log("ALLO")
 	}
-	else if(typ=='"w"'){
+	else if(typ=='"aw"'){
 		//display the tenders page for the admin
 		document.getElementById('tenders').style.display = 'block'
 		tab = document.getElementById('tentable')
@@ -80,7 +80,163 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 
 
 
+<!-- Overlay effect when opening sidebar on small screens -->
 
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+<div id='m' class="w3-main" style="margin-left:250px">
+
+  <div class="w3-row w3-padding-64">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-teal" style="float: left">Title :  <h2 class="w3-bar-item" style="float: right" id="title"> {{project[0]}} </h1></h1>
+    </div>
+  </div>
+   <div class="w3-row">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-teal" style="float: left">State :  <h2 class="w3-bar-item" style="float: right" id="state"> {{project[2]}}</h1></h1>
+    </div>
+  </div>
+
+   <div class="w3-row">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-teal" style="float: left">District : <h2 class="w3-bar-item" style="float: right" id="address"> {{project[3]}}</h2></h1>
+    </div>
+  </div>
+
+
+  <div class="w3-row">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-teal" style="float: left">Project category :</h1>
+      <h2 class="w3-bar-item" style="float: right" id="project">{{project[4]}}</h2>
+    </div>
+  </div>
+
+     <div class="w3-row">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-teal" style="float: left">Bid start-date :</h1>
+      <h2 class="w3-bar-item" style="float: right" id="bid_start">{{project[5]}}</h2>
+    </div>
+  </div>
+
+  <div class="w3-row">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-teal" style="float: left">Bid end-date :</h1>
+      <h2 class="w3-bar-item" style="float: right" id="bid_end">{{project[6]}}</h2>
+    </div>
+  </div>
+
+  <div class="w3-row w3-padding-24">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-teal">Description :</h1>
+      <p class="w3-bar-item" id="description" >{{project[7]}}</p>
+    </div>
+  </div>
+  
+  <div style='display:none' id='tenders' class="container">
+    <h2>Tenders</h2>
+    <p>The tenders to this project are displayed here</p>            
+    <table class="table table-striped">
+    <thead>
+      <tr>
+      <th>Tender ID</th>
+      <th>Amount</th>
+      <th>Pub Date</th>
+      <th>Last Date</th>
+    </thead>
+    <tbody id='tentable'>
+      
+    </tbody>
+    </table>
+  </div>
+  <br><br><br>
+  
+<!--
+  <div class="w3-row">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-teal" >Updates :</h1>
+      <table border=1 id="table_head" >
+<tr> 
+  <th width="130">Department</th>
+  <th width="163">Tender Number</th>
+  <th width="240">Tender Discription</th>
+  <th width="100">Document <br> Request <br> Date</th>
+</tr>
+</table>
+
+<marquee id="table_data" direction="up" behavior="scroll" onmousemove="this.stop()" onmouseout="this.start()" scrollamount="4">
+<table  style="float: center">
+<col width="134">
+<col width="163">
+<col width="240">
+<col width="105">
+<tr>
+  <td> Punjab Water Resources Management and Development  </td>
+  <td> PWRMDC/2015-16/32  </td>
+  <td> Relining of W/Cs of O/L RD 19500-<br>R of Jodhpur Disty.  </td>
+  <td> 16-11-2015<br> 11:00  </td>
+</tr>
+<tr>
+  <td> Punjab Water<br>Resources <br>Management and <br>Development  </td>
+  <td>  PWRMDC/2015-16/32 </td>
+  <td>  Relining Lining of W/Cs of O/L RD<br> 40233-L of Mandi Mr. of Joga<br> Disty </td>
+  <td>  16-11-2015<br> 11:00 </td>
+</tr>
+<tr>
+  <td> Punjab Water<br>Resources <br>Management and <br>Development  </td>
+  <td> PWRMDC/2015-16/32  </td>
+  <td> Lining of W/Cs of O/L RD 5874-R <br>Sukhchain Mr. of Lal Bai Disty  </td>
+  <td> 16-11-2015<br> 11:00  </td>
+</tr>
+<tr>
+  <td> Punjab Water<br>Resources <br>Management and <br>Development  </td>
+  <td> PWRMDC/2015-16/32  </td>
+  <td> Relining Lining of W/Cs of O/L RD <br>17847/17900-R of<br> Mr. No. 1 of Joga Disty.  </td>
+  <td> 16-11-2015<br> 11:00  </td>
+</tr>
+<tr>
+  <td> Punjab Water<br>Resources <br>Management and <br>Development  </td>
+  <td> PWRMDC/2015-16/32  </td>
+  <td> Relining Lining of W/Cs of O/L RD <br>441125/436710-R of Bathinda <br>Branch  </td>
+  <td> 16-11-2015<br> 11:00  </td>
+</tr>
+<tr>
+  <td> Punjab Water<br>Resources <br>Management and <br>Development  </td>
+  <td> PWRMDC/2015-16/32  </td>
+  <td> Relining of W/Cs of O/L RD 77450-<br>R of Ghuman Disty.  </td>
+  <td> 16-11-2015<br> 11:00  </td>
+</tr>
+<tr>
+  <td> Punjab Water<br>Resources <br>Management and <br>Development  </td>
+  <td> PWRMDC/2015-16/32  </td>
+  <td> Relining of W/Cs of O/L RD 15228-<br>R of Bhai Bakhtaur Br. of Ghuman <br>Disty.  </td>
+  <td> 16-11-2015<br> 11:00  </td>
+</tr>
+<tr>
+  <td> Punjab Water<br>Resources <br>Management and <br>Development  </td>
+  <td>  PWRMDC/2015-16/32 </td>
+  <td>  Relining of W/Cs of O/L RD 16687-<br>L of Khokhar S/Mr. of Mandi Mr. of <br>Joga Disty. </td>
+  <td> 16-11-2015<br> 11:00  </td>
+</tr>
+<tr>
+  <td>Punjab Water<br>Resources <br>Management and <br>Development   </td>
+  <td> PWRMDC/2015-16/32  </td>
+  <td>Relining of W/Cs of O/L RD 2607-L <br>of S/Mr. No.1 of Joga Disty. </td>
+  <td> 16-11-2015<br> 11:00  </td>
+</tr>
+<tr>
+  <td> Punjab Water<br>Resources <br>Management and <br>Development  </td>
+  <td> PWRMDC/2015-16/32  </td>
+  <td> Relining of W/Cs of O/L RD <br>31131/29651-R of Kot Bhai Disty  </td>
+  <td> 16-11-2015<br> 11:00  </td>
+</tr>
+</table>
+</marquee>  
+ 
+-->
+
+<!-- END MAIN -->
+</div>
 
 <div class="conatiner start">
   <div class="row data">
