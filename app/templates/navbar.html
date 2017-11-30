@@ -43,8 +43,8 @@
           check.text("Go to admin panel")
       }
       else {
-          check.click(function(){window.location="/contractor/"+user_name})
-          check.text("Go to contactor panel")        
+          check.click(function(){window.location="/contractor/"+$("#u_id").val()})
+          check.text("Go to contractor panel")        
       }
         $("#user_con").append(check)
   }
