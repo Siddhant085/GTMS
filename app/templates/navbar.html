@@ -33,19 +33,18 @@
       $("#logOutBlock").show();
       $("#sign_bar").hide();
       $("#user_info").show();
-      var con = "Welcome, "+data[0];
+      var con = "Welcome, "+data[0]+"<br><br>";
       $("#user_con").html(con);
       check = $("<button></button>")
-      alert(data)
+	  check.addClass('btn btn-default')
       if(data[1] == "admin"){
           check.click(function(){window.location="/admin"})
-          check.text("Go to the admin panel")
+          check.text("Go to admin panel")
       }
       else {
           check.click(function(){window.location="/contractor/"+user_name})
-          check.text("Go to the contactor panel")        
+          check.text("Go to contactor panel")        
       }
-      if($("user_con").length != 0)
         $("#user_con").append(check)
   }
 
