@@ -95,11 +95,18 @@ class Database():
             return False
     def addBid(data):
         cur = mysql.connection.cursor()
+        cur.execute("insert into tender(est_amt,tender_pub_date,tender_last_date,tender_active) values("+str(data['est_amt'])+",\
+                '"+data['tender_pub_date']+"','"+data['tender_last_date']+"','w')")
+        mysql.connection.commit()
+        cur.execute("select * from project where title = '"+data['project']+"'")
+        pid = cur.fetchone()[1]
+        cur.execute("select * from vender where username = '"+data['vender']+"'")
+        uid = cur.fetchone()[0]
+        cur.execute("select tender_id from tender where tender_id = (select max(tender_id) from tender)")
+        tid = cur.fetchone()[0]
+        print(tid)
         cur.execute("insert into bidding(vender_id,tender_id, \
-            project_id,cost,date \
-                ) values('"+data['vender_id']+"','" \
-                    +data['tender_id']+"','"+data['project_id']+"','"+data['cost']+\
-                    "','"+data['date']+"')")
+            project_id) values('"+str(uid)+"','"+str(tid)+"','"+str(pid)+"')")
         mysql.connection.commit()
         return True
 
@@ -180,6 +187,17 @@ class Database():
         if data is None:
             return []
         return data
+
+    def approveTender(data):
+        cur = mysql.connection.cursor()
+        cur.execute("select project_id from bidding where tender_id = "+str(data['tender_id']))
+        proj = cur.fetchone()[0]
+        print(data['tender_id'])
+        cur.execute("update tender set tender_active = 'r' where tender_id in (select tender_id from bidding where project_id ='"+str(proj)+"')")
+        cur.execute("update project set project_status = 'a' where project_id ="+str(proj))
+        cur.execute("update tender set tender_active='a' where tender_id="+str(data['tender_id']))
+        cur.connection.commit()
+
     
 '''
     def search_by_state(data)
