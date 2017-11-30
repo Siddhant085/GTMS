@@ -201,3 +201,12 @@ def getUpdate(pname):
     data = Database.getUpdate(pname)
     return jsonify(data)
     
+@app.route('/makeBid',methods=['POST'])
+@login_required
+def makeBid():
+    data = request.get_json()
+    data['vender'] = current_user.username
+    if Database.addBid(data):
+        return "Data added successfully"
+    return "error",404
+
