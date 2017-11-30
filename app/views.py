@@ -122,6 +122,7 @@ def disp_project(pname):
 	type = 'n'
 	if (current_user.access == "admin"):
 		if(data[-1]=='a'):#if allocated send updates and specify type
+			updates = Database.getUpdate(pname)
 			type='aa'
 		else:#else send tenders and specify type
 			type='aw'
@@ -183,3 +184,18 @@ def getBid(cname):
             return jsonify([])
         return jsonify(data)
     return "Invalid access",401
+
+@app.route('/makeUpdate',methods=['POST'])
+@login_required
+def makeUpdate():
+    data = request.get_json()
+    if Database.putUpdate(data):
+        return "Data added successfully"
+    return "error",404
+
+@app.route('/getUpdate/<pname>')
+@login_required
+def getUpdate(pname):
+    data = Database.getUpdate(pname)
+    return jsonify(data)
+    
