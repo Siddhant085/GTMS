@@ -42,6 +42,7 @@ function loadProjectData(data, tab){
 			td = document.createElement('td')
 			a = document.createElement('a')
 			a.href = "/project/title/"+data[i][0]
+			a.id = 'pr'+i
 			a.appendChild(document.createTextNode(data[i][j]))
 			td.appendChild(a)
 			tr.appendChild(td)
