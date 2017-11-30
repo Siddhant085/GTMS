@@ -13,7 +13,6 @@
     <li><a data-toggle="tab" href="#menu1" onclick='waiting()'>Waiting Projects</a></li>
     <li><a data-toggle="tab" href="#menu2">View All</a></li>
     <li><a data-toggle="tab" href="#menu3">Add New Project</a></li>
-    <li><a data-toggle="tab" href="#menu4">Bidding Status</a></li>
       </ul>
 
   <div class="tab-content">
@@ -57,15 +56,13 @@
 		</tbody>
 		</table>
     </div>
-    <div id="menu2" class="tab-pane fade">
-      <h3>View Projects</h3>
-      <div class="container">
-	  
+    <div id="menu2" class="tab-pane fade">      <div class="container">
+	  <br>
       <!-- Portfolio Item Heading -->
-      <h1 class="my-4">Search for the projects </h1>
+      <h3 class="my-4">Search for the projects </h3>
 
       <!-- Portfolio Item Row -->
-      <div class="row">
+      <div class="row container">
         <div class="col-md-8">
          <form class="form-horizontal" action="javascript:void(0)">
 		  <div class="form-group">
@@ -75,7 +72,7 @@
 			<label class="radio-inline"><input type="radio" name="optradio" id="method" value="project_category">Department</label>
 			<label class="radio-inline"><input type="radio" name="optradio" id="method" value="district">District</label>
 			<label class="radio-inline"><input type="radio" name="optradio" id="method" value="state">State</label>
-		  </div></div>
+		  </div></div><br>
 		  <div class="form-group">
 			<label class="control-label col-sm-2">Search here..</label>
 			<div class="col-sm-10"> 
@@ -156,34 +153,7 @@
       </div>
 	  <br><br><br>
     </div>
-     <div id="menu4" class="tab-pane fade">
-      <h3>View Bidding </h3>
-      <div class="container">
-        <form>
-        <label>Tender Name</label><select id="ten_name"></select>
-        <br>
-        <label>Tender Description</label><p id="ten_des"></p>
-        <table class="table table-hover" >
-    <thead>
-       <tr>
-        <th>Contractor</th>
-        <th>Bidding amount</th>
-        <th>Yes</th>
-       </tr>
-       <tr>
-         <td></td>
-         <td></td>
-         <td><input type="radio" id="approve_bid" name=""></td>
-       </tr>
-    </thead>
-    <tbody id='tab'>
-       
-    </tbody>
-  </table>
-  <input type="button" class="btn btn-success" value="Transmit" id="hitbid" name="biddingButton">
-</form>
-      </div>
-      </div>
+     
   </div>
       
      
