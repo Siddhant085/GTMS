@@ -124,27 +124,29 @@ def disp_project(pname):
 	updates=[]
 	tenders=[]
 	type = 'n'
-	if (current_user.access == "admin"):
-		if(data[-1]=='a'):#if allocated send updates and specify type
-			updates = Database.getUpdate(pname)
-			type='aa'
-		else:#else send tenders and specify type
-			type='aw'
-			#tenders = Database.
-			tenders = (list(Database.getTender(pname)))
-			for i in range(len(tenders)):
-				tenders[i]=list(tenders[i])
-			tenders = tenders
-			print(tenders)
-	else:
-		if(data[-1]=='a' and Database.pAllocTo(current_user.username,data[1])):
-			#contractor can make updates
-			type = 'ca'
+	try:
+		if (current_user.access == "admin"):
+			if(data[-1]=='a'):#if allocated send updates and specify type
+				updates = Database.getUpdate(pname)
+				type='aa'
+			else:#else send tenders and specify type
+				type='aw'
+				#tenders = Database.
+				tenders = (list(Database.getTender(pname)))
+				for i in range(len(tenders)):
+					tenders[i]=list(tenders[i])
+				tenders = tenders
+				print(tenders)
 		else:
-			#contractor can make bid if date is open
-			type = 'cw'
-		#dont send data but send 'contractor' as type
-		
+			if(data[-1]=='a' and Database.pAllocTo(current_user.username,data[1])):
+				#contractor can make updates
+				type = 'ca'
+			else:
+				#contractor can make bid if date is open
+				type = 'cw'
+			#dont send data but send 'contractor' as type
+	except:
+		pass
 	print(type)
 	return render_template('proj_info.html', project = data, type= type,\
                 updates=updates, tenders=tenders)
