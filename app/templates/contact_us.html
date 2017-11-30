@@ -1,0 +1,80 @@
+{% extends "navbar.html" %}
+{% block include %}
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static',filename='css/rightbar.css') }}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/fullpage.css') }}">
+
+	<script type = "text/javascript">
+
+	</script>
+	
+{% endblock %}
+{% block body %}
+
+
+    <!-- Page Content -->
+    <div class="container start">
+
+		  <!-- Portfolio Item Heading -->
+		<h1 class="my-4">Page Heading
+			<small>Secondary Text</small>
+		</h1>
+		<div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Contact Us</h4>
+                            </div>
+                            <div class="content">
+                                <form>
+                                    <div class="row">
+                                         
+                                        <div class="col-md-8"><label>Name</label><input id="name" type="text" class="form-control" value="" name="name" placeholder="your name" >
+                                         </div>
+                                       </div>
+                                       <div class="row">
+                                         <div class="col-md-8"><label>Email</label><input id="conmail" type="email" class="form-control" name="email" placeholder="someone@example.com">
+                                         </div> </div>
+                                         <div class="row">
+                                         <div class="col-md-8"><label>Mobile Number</label><input id="mobilenum" type="text" class="form-control" name="Mobile" placeholder="+91XXXXXXXXXX">
+                                         </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                          <label for="comment">Message</label>
+                                       
+                                       <textarea class="form-control" rows="5" id="con_message"></textarea>
+                                          </div> 
+                                        </div>
+                                    
+                                    <button type="submit" id="submitfaq" class="btn btn-info" onclick="">Send</button>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+        </div>
+		
+
+		
+
+    </div>
+
+    </div>
+    <!-- /.container -->
+	
+	
+	
+
+    <!-- Footer -->
+    <footer class="py-2 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+
+{% endblock %}
