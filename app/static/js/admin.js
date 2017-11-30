@@ -35,6 +35,7 @@ function load_waiting_proj(data){
 }
 function loadProjectData(data, tab){
 	console.log(data)
+	tab.innerHTML=""
 	for(i=0; i<data.length; ++i){
 		tr = document.createElement('tr')
 		for (var j=0; j<7; ++j){

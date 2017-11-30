@@ -34,10 +34,13 @@
 		for(var i=0; i<data.length; ++i){
 			tr = document.createElement('tr')
 			console.log(data[i][0]);
-			tr.onclick = function(){console.log($(event.target).children());window.location="/project/title"+$(event.target).children()[0].text()}
+			//tr.onclick = function(){console.log($(event.target).children());window.location="/project/title"+$(event.target).children()[0].text()}
 			for (var j=0; j<7; ++j){
 				td = document.createElement('td')
-				td.appendChild(document.createTextNode(data[i][j]))
+				a = document.createElement('a')
+				a.href = '/project/title/'+data[i][0]
+				a.appendChild(document.createTextNode(data[i][j]))
+				td.appendChild(a)
 				tr.appendChild(td)
 			}
 			d.appendChild(tr)
