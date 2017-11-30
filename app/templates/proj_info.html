@@ -2,6 +2,7 @@
 {% block include %}
 
 <link rel="stylesheet" href="{{ url_for('static',filename='css/w3.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="{{ url_for('static',filename='css/font-awesome.min.css')}}"> 
@@ -11,23 +12,35 @@
 	$(document).ready(function(){
 	typ = '{{ type|tojson }}'
 	console.log(typ)
-  console.log("{{makeBid}}")
+
 	if(typ=='"aa"'){
 		//display the project status for the admin
-		//marquee can be used for this 
-		console.log("ALLO")
+		document.getElementById('updates').style.display = 'block'
+		var tab = document.getElementById('updtable')
+		console.log('{{ updates }}')
+		var data = JSON.parse('{{ updates|tojson|safe }}')
+		console.log(data)
+		for(var i=0; i<data.length; ++i){
+			var tr = document.createElement('tr')
+			for (var j=0; j<3; ++j){
+				var td = document.createElement('td')
+				td.appendChild(document.createTextNode(data[i][j]))
+				tr.appendChild(td)
+			}
+			tab.appendChild(tr)
+		}
 	}
 	else if(typ=='"aw"'){
 		//display the tenders page for the admin
 		document.getElementById('tenders').style.display = 'block'
-		tab = document.getElementById('tentable')
+		var tab = document.getElementById('tentable')
 		console.log('{{ tenders }}')
-		data = JSON.parse('{{ tenders|tojson|safe }}')
+		var data = JSON.parse('{{ tenders|tojson|safe }}')
 		console.log(data)
 		for(var i=0; i<data.length; ++i){
-			tr = document.createElement('tr')
+			var tr = document.createElement('tr')
 			for (var j=0; j<4; ++j){
-				td = document.createElement('td')
+				var td = document.createElement('td')
 				td.appendChild(document.createTextNode(data[i][j]))
 				tr.appendChild(td)
 			}
@@ -35,33 +48,38 @@
 		}
 	}
 	else if(typ=='"ca"'){
-    //show update form
-    /*
-    console.log("update")
-    label1 = $("<label></label>").text("Percentage work done")
-    comp = $('<input></input>',{type:"text",placeholder:"Percentage work done"})
-    label2 = $("<label></label>").text("Delays")
-    delays = $('<input></input>',{type:"text",placeholder:"Delays"})
-    label3 = $("<label></label>").text("Upload images")
-    //images = $('<input></input>',{type:"file",accept:"image/*"})
-    submit = $("<button></button>")
-    submit.html("Submit")
-    submit.click(function(){
-      data1 = 
-    })
-    $('.data').append(label1,comp,label2,delays,submit)
-    */
-  }
-  else{
-		//Display make bid page for the contractor
-		but = document.createElement('input')
-		but.type = 'button'
-		but.innerHTML = "MAKE BID"
-		but.onclick = '' //go to make bid page
-    but.style="width:50px;margin-botton:56px"
-		document.getElementById('m').appendChild(but)
+		//form for updates being displayed
+		document.getElementById('makeupd').style.display = 'block'
+		
 	}
+	else if(typ=='"cw"'){
+		//Display make bid page for the contractor
+		
+	}
+	else{
+		//a normal user (not logged in) 
 	});
+	
+	function placeUpd(){
+		data1 = document.getElementById('wd').value
+		data2 = document.getElementById('desc').value
+		data3 = '{{project[0]}}'
+		data = {'wd':data1, 'desc':data2, project:data3}
+		$.ajax({
+			url: "/makeUpdate",
+			data:  JSON.stringify(data),
+			type: "POST",
+			contentType: 'application/json;charset=UTF-8',
+			success: update_success,
+			error: function(error) {
+				console.log(error);
+			}
+		});
+	
+	}
+	function update_success(){
+		alert("ADDED update")
+	}
 </script>
 
 <style>
@@ -151,91 +169,39 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
     </tbody>
     </table>
   </div>
-  <br><br><br>
-  
-<!--
-  <div class="w3-row">
-    <div class="w3-twothird w3-container">
-      <h1 class="w3-text-teal" >Updates :</h1>
-      <table border=1 id="table_head" >
-<tr> 
-  <th width="130">Department</th>
-  <th width="163">Tender Number</th>
-  <th width="240">Tender Discription</th>
-  <th width="100">Document <br> Request <br> Date</th>
-</tr>
-</table>
+  <div style='display:none' id='updates' class="container">
+    <h2>Updates</h2>
+    <p>The updates of this project are displayed here</p>            
+    <table class="table table-striped">
+		<thead>
+		  <tr>
+		  <th>Dates</th>
+		  <th>Percentage</th>
+		  <th>Delay</th>
 
-<marquee id="table_data" direction="up" behavior="scroll" onmousemove="this.stop()" onmouseout="this.start()" scrollamount="4">
-<table  style="float: center">
-<col width="134">
-<col width="163">
-<col width="240">
-<col width="105">
-<tr>
-  <td> Punjab Water Resources Management and Development  </td>
-  <td> PWRMDC/2015-16/32  </td>
-  <td> Relining of W/Cs of O/L RD 19500-<br>R of Jodhpur Disty.  </td>
-  <td> 16-11-2015<br> 11:00  </td>
-</tr>
-<tr>
-  <td> Punjab Water<br>Resources <br>Management and <br>Development  </td>
-  <td>  PWRMDC/2015-16/32 </td>
-  <td>  Relining Lining of W/Cs of O/L RD<br> 40233-L of Mandi Mr. of Joga<br> Disty </td>
-  <td>  16-11-2015<br> 11:00 </td>
-</tr>
-<tr>
-  <td> Punjab Water<br>Resources <br>Management and <br>Development  </td>
-  <td> PWRMDC/2015-16/32  </td>
-  <td> Lining of W/Cs of O/L RD 5874-R <br>Sukhchain Mr. of Lal Bai Disty  </td>
-  <td> 16-11-2015<br> 11:00  </td>
-</tr>
-<tr>
-  <td> Punjab Water<br>Resources <br>Management and <br>Development  </td>
-  <td> PWRMDC/2015-16/32  </td>
-  <td> Relining Lining of W/Cs of O/L RD <br>17847/17900-R of<br> Mr. No. 1 of Joga Disty.  </td>
-  <td> 16-11-2015<br> 11:00  </td>
-</tr>
-<tr>
-  <td> Punjab Water<br>Resources <br>Management and <br>Development  </td>
-  <td> PWRMDC/2015-16/32  </td>
-  <td> Relining Lining of W/Cs of O/L RD <br>441125/436710-R of Bathinda <br>Branch  </td>
-  <td> 16-11-2015<br> 11:00  </td>
-</tr>
-<tr>
-  <td> Punjab Water<br>Resources <br>Management and <br>Development  </td>
-  <td> PWRMDC/2015-16/32  </td>
-  <td> Relining of W/Cs of O/L RD 77450-<br>R of Ghuman Disty.  </td>
-  <td> 16-11-2015<br> 11:00  </td>
-</tr>
-<tr>
-  <td> Punjab Water<br>Resources <br>Management and <br>Development  </td>
-  <td> PWRMDC/2015-16/32  </td>
-  <td> Relining of W/Cs of O/L RD 15228-<br>R of Bhai Bakhtaur Br. of Ghuman <br>Disty.  </td>
-  <td> 16-11-2015<br> 11:00  </td>
-</tr>
-<tr>
-  <td> Punjab Water<br>Resources <br>Management and <br>Development  </td>
-  <td>  PWRMDC/2015-16/32 </td>
-  <td>  Relining of W/Cs of O/L RD 16687-<br>L of Khokhar S/Mr. of Mandi Mr. of <br>Joga Disty. </td>
-  <td> 16-11-2015<br> 11:00  </td>
-</tr>
-<tr>
-  <td>Punjab Water<br>Resources <br>Management and <br>Development   </td>
-  <td> PWRMDC/2015-16/32  </td>
-  <td>Relining of W/Cs of O/L RD 2607-L <br>of S/Mr. No.1 of Joga Disty. </td>
-  <td> 16-11-2015<br> 11:00  </td>
-</tr>
-<tr>
-  <td> Punjab Water<br>Resources <br>Management and <br>Development  </td>
-  <td> PWRMDC/2015-16/32  </td>
-  <td> Relining of W/Cs of O/L RD <br>31131/29651-R of Kot Bhai Disty  </td>
-  <td> 16-11-2015<br> 11:00  </td>
-</tr>
-</table>
-</marquee>  
+		</thead>
+		<tbody id='updtable'>
+			
+		</tbody>
+    </table>
+  </div>
+	<div style='display:none' id='makeupd' class="container">
+	<h3>MAKE PROJECT UPDATES</h3>
+	 <form>
+		<div class="form-group">
+		<label for="percentage">Work Done Percentage</label>
+		<input type="text" id="wd"  placeholder="%" >
+		</div>
+		<div class="form-group">
+		<label >Description/Problems faced</label>
+		<input type="text" id="desc"  placeholder="Description">
+	  </div>
+		<input type="button" value="Submit" class="btn btn-default" onclick="placeUpd()"></br></br>
+	</div>
+  
+  
+  <br><br><br>
  
--->
 
 <!-- END MAIN -->
 </div>
