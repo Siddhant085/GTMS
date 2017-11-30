@@ -89,6 +89,18 @@ CREATE TABLE IF NOT EXISTS `news`(
 	PRIMARY KEY(`news_id`)
 );
 
+CREATE TABLE IF NOT EXISTS updates(
+	project_id int NOT NULL,
+	date date NOT NULL,
+	percentage int NOT NULL,
+	delays varchar(1000),
+	update_id int NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY(update_id)
+);
+
+ALTER TABLE updates
+	ADD FOREIGN KEY (project_id) REFERENCES project(project_id);
+
 ALTER TABLE `project`
    ADD FOREIGN KEY (`project_category`) REFERENCES `project_category` (`project_category_id`);
 
