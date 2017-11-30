@@ -25,14 +25,27 @@
 		}
 	</style>
   <script type="text/javascript">
+  user_name=""
     function loggedIn(data){
-      
+      console.log(data)
+      user_name = data[0]
       $("#login_bar").hide();
       $("#logOutBlock").show();
       $("#sign_bar").hide();
       $("#user_info").show();
-      var con = "Welcome, "+data;
+      var con = "Welcome, "+data[0];
       $("#user_con").html(con);
+      check = $("<button></button>")
+      
+      if(data[1] == "admin"){
+          check.click(function(){window.location="/admin"})
+          check.text("Go to the admin panel")
+      }
+      else {
+          check.click(function(){window.location="/contractor/"+user_name})
+          check.text("Go to the contactor panel")        
+      }
+      $("#user_con").append(check)
   }
 
   function loggedOut(data){
@@ -53,8 +66,8 @@
       error: loggedOut
     });
     $("#loginBtn").click(function(){
-      var username = $("#u_id").val();
-      var password = $("#password_u").val();
+       username = $("#u_id").val();
+       password = $("#password_u").val();
       data = {'username':username, 'password':password}
       
         console.log("fired");
@@ -104,7 +117,7 @@
               <a class="nav-link" href="#">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
+              <a class="nav-link" href="/search">Search</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Contact</a>

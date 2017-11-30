@@ -44,7 +44,7 @@ def login():
 @app.route("/getUser")
 @login_required
 def getUser():
-	return current_user.username
+	return jsonify([current_user.username,current_user.access])
 
 @app.route("/logout")
 @login_required
@@ -56,7 +56,8 @@ def logout():
 @login_required
 def home(username):
 	data = Database.getUser(username)
-	return jsonify(data[1])
+	print(data)
+	return jsonify(data[1:3])
 
 	
 @app.route("/bids/<pname>")
@@ -118,19 +119,28 @@ def disp_project(pname):
 	data = list(Database.getProject(pname))
 	updates=[]
 	tenders=[]
-	print(data)
+	type = 'n'
 	if (current_user.access == "admin"):
 		if(data[-1]=='a'):#if allocated send updates and specify type
-			type='a'
+			type='aa'
 		else:#else send tenders and specify type
-			type='w'
+			type='aw'
 			#tenders = Database.
+			result = Database.getTender(pname)
+			return jsonify(result)
 			
 	else:
+		if(data[-1]=='a' and Database.pAllocTo(current_user.username,data[1])):
+			#contractor can make updates
+			type = 'ca'
+		else:
+			#contractor can make bid if date is open
+			type = 'cw'
 		#dont send data but send 'contractor' as type
-		type='c'
+		
 	print(type)
-	return render_template('proj_info.html', project = data, type= type, updates=updates, tenders=tenders)
+	return render_template('proj_info.html', project = data, type= type,\
+                updates=updates, tenders=tenders)
 	
 @app.route('/check', methods=['POST'])
 def checkbid():

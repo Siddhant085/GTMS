@@ -144,6 +144,23 @@ class Database():
             result.append(temp)
             print(result)
         return result
+
+    def pAllocTo(username,project_id):
+        cur = mysql.connection.cursor()
+        cur.execute("select * from bidding where project_id = "+str(project_id)+" and vender_id in (select vender_id from vender where username = '"+username+"')")
+        data = cur.fetchone()
+        if data != None:
+            return True
+        return False
+
+    def getTender(pname):
+        cur = mysql.connection.cursor()
+        cur.execute("select * from tender where tender_id in (select tender_id from bidding where project_id in (select project_id form project where title = '"+pname+"'))")
+        data = cur.fetchall()
+        if data == None:
+            return []
+        return data
+
     
 '''
     def search_by_state(data)
