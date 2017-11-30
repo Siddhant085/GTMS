@@ -50,6 +50,12 @@
     $("input[name='optradio'][value='{{method}}']").prop('checked',true)
   })
 	</script>
+  <style type="text/css">
+    .radio-inline{
+      padding: 4px;
+      margin: 2px;
+    }
+  </style>
 {% endblock %}
 {% block body%}
 <div class="container start">
@@ -75,7 +81,7 @@
   <div class="form-group">
     <label class="control-label col-sm-2">Search here..</label>
     <div class="col-sm-10"> 
-      <input type="text" class="form-control" id="str" placeholder="Enter TEXT" value="{{data}}">
+      <input type="text" class="form-control" id="str" placeholder="Enter text" value="{{data}}">
     </div>
   </div>
   

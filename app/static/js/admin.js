@@ -38,11 +38,18 @@ function loadProjectData(data, tab){
 	tab.innerHTML=""
 	for(i=0; i<data.length; ++i){
 		tr = document.createElement('tr')
-		for (var j=0; j<7; ++j){
+		data[i].splice(4,1)
+		for (var j=0; j<6; ++j){
 			td = document.createElement('td')
 			a = document.createElement('a')
 			a.href = "/project/title/"+data[i][0]
+			if(j>3){
+				d = new Date(Date.parse(data[i][j]))
+				a.appendChild(document.createTextNode(d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()))
+			}
+			else{
 			a.appendChild(document.createTextNode(data[i][j]))
+			}	
 			td.appendChild(a)
 			tr.appendChild(td)
 		}
@@ -75,6 +82,7 @@ function update_success(text){
 	res = document.getElementById('result')
 	res.style.display = "block"
 	d = document.getElementById('tab')
+	d.innerHTML=""
 	for(var i=0; i<data.length; ++i){
 		tr = document.createElement('tr')
 		for (var j=0; j<7; ++j){

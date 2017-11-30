@@ -67,8 +67,8 @@ class Database():
         cur = mysql.connection.cursor()
         try:
             cur.execute("insert into project(title, state, district, project_category, bid_start_date,\
-                bid_end_date) values('"+data['title']+"','"+data['state']+"','"+data['district']+"','"+data['project_category']+\
-                "','"+data['bid_start_date']+"','"+data['bid_end_date']+"')")
+                bid_end_date,project_desc,project_status) values('"+data['title']+"','"+data['state']+"','"+data['district']+\
+                "','"+data['project_category']+"','"+data['bid_start_date']+"','"+data['bid_end_date']+"','"+data['project_desc']+"','w')")
             mysql.connection.commit()
         except Exception as e:
             print(e)

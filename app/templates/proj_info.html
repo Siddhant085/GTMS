@@ -182,60 +182,45 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 
 
 
+<div class="container start">
+<div class="row">
 
-<!-- Overlay effect when opening sidebar on small screens -->
-
-<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
-
-<!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
-<div id='m' class="w3-main" style="margin-left:250px">
-
-  <div class="w3-row w3-padding-64">
-    <div class="w3-twothird w3-container">
-      <h1 class="w3-text-teal" style="float: left">Title :  <h2 class="w3-bar-item" style="float: right" id="title"> {{project[0]}} </h1></h1>
-    </div>
+        <div class="col-md-8">
+          <div id="con_details">
+			<table class="table" id="det">
+			<thead>
+			  <tr>
+				<th>Name</th>
+				<th>State</th>
+				<th>District</th>
+				<th>Status</th>
+				<th>Bid Start Date</th>
+				<th>Bid End Date</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr>
+				<td id = "name_c">{{project[0]}}</td>
+				<td id = "mobile_c">{{project[2]}}</td>
+				<td id = "pan_c">{{project[3]}}</td>
+				{% if project[8] == 'a' %}
+				<td>Allocated</td>
+				{% else %}
+				<td>Waiting</td>
+				{% endif %}
+				<td id = "tan_c">{{project[5]}}</td>
+				<td id = "vat_c">{{project[6]}}</td>
+			  </tr>
+			</tbody>
+		  </table>
+		  </div>
+		 </div>
+		</div>
+  <div class="row">
+  	<h2 class="col-md-12">Description</h2>
+	<p>{{project[7]}}</p>
   </div>
-   <div class="w3-row">
-    <div class="w3-twothird w3-container">
-      <h1 class="w3-text-teal" style="float: left">State :  <h2 class="w3-bar-item" style="float: right" id="state"> {{project[2]}}</h1></h1>
-    </div>
   </div>
-
-   <div class="w3-row">
-    <div class="w3-twothird w3-container">
-      <h1 class="w3-text-teal" style="float: left">District : <h2 class="w3-bar-item" style="float: right" id="address"> {{project[3]}}</h2></h1>
-    </div>
-  </div>
-
-
-  <div class="w3-row">
-    <div class="w3-twothird w3-container">
-      <h1 class="w3-text-teal" style="float: left">Project category :</h1>
-      <h2 class="w3-bar-item" style="float: right" id="project">{{project[4]}}</h2>
-    </div>
-  </div>
-
-     <div class="w3-row">
-    <div class="w3-twothird w3-container">
-      <h1 class="w3-text-teal" style="float: left">Bid start-date :</h1>
-      <h2 class="w3-bar-item" style="float: right" id="bid_start">{{project[5]}}</h2>
-    </div>
-  </div>
-
-  <div class="w3-row">
-    <div class="w3-twothird w3-container">
-      <h1 class="w3-text-teal" style="float: left">Bid end-date :</h1>
-      <h2 class="w3-bar-item" style="float: right" id="bid_end">{{project[6]}}</h2>
-    </div>
-  </div>
-
-  <div class="w3-row w3-padding-24">
-    <div class="w3-twothird w3-container">
-      <h1 class="w3-text-teal">Description :</h1>
-      <p class="w3-bar-item" id="description" >{{project[7]}}</p>
-    </div>
-  </div>
-  
   <div style='display:none' id='tenders' class="container">
     <h2>Tenders</h2>
     <p>The tenders to this project are displayed here</p>            

@@ -82,7 +82,11 @@ def bidplaced():
 
 @app.route("/search")
 def search():
-	return render_template('search.html',method=request.args.get('method'),data=request.args.get('text'))
+	data = "Enter Text"
+	if request.args.get('text') is not None:
+		data = request.args.get("text")
+		print(data)
+	return render_template('search.html',method=request.args.get('method'),data=data)
 	
 @app.route("/search_by", methods=['POST'])
 def search_by():
@@ -99,13 +103,13 @@ def search_by():
 @login_required
 def addProject():
 	if current_user.access == "admin":
-		projDetails = request.get_json()
+		data = request.get_json()
 		#verify Data parameters
 		if Database.addProject(data):
 		#if successful
 			return "Data saved successfully"
 		else:
-			return "Error saving data"
+			return "Error saving data",404
 	return "Access denied" 
 '''
 @app.route("/project/id/<id>", methods=['GET'])
