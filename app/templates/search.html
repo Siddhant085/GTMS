@@ -24,8 +24,7 @@
 	}
 	function update_success(text){
 		// need to parse this text as json and accordingly update the search results in this function
-		console.log(text)
-		alert(text)
+
 		data = JSON.parse(text)
 		
 		res = document.getElementById('result')
@@ -33,6 +32,8 @@
 		d = document.getElementById('tab')
 		for(var i=0; i<data.length; ++i){
 			tr = document.createElement('tr')
+      console.log(data[i][0]);
+      tr.onclick = function(){console.log($(event.target).children());window.location="/project/title"+$(event.target).children()[0].text()}
 			for (var j=0; j<7; ++j){
 				td = document.createElement('td')
 				td.appendChild(document.createTextNode(data[i][j]))
