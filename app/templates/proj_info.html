@@ -35,7 +35,7 @@
 			document.getElementById('tenders').style.display = 'block'
 			var tab = document.getElementById('tentable')
 			console.log('{{ tenders }}')
-			var data = JSON.parse('{{ tenders|tojson|safe }}')
+			data = JSON.parse('{{ tenders|tojson|safe }}')
 			console.log(data)
 			for(var i=0; i<data.length; ++i){
 				var tr = document.createElement('tr')
@@ -47,7 +47,9 @@
 				but = document.createElement('button')
 				but.className = 'btn btn-default'
 				but.innerHTML = 'Approve'
-				but.onclick = approvetender(data[i][0])
+				but.id = data[i][0]
+				but.onclick = approvetender
+				tr.appendChild(but)
 				tab.appendChild(tr)
 			}
 		}
@@ -78,18 +80,23 @@
 			}
 		}
 	});
-	function approvetender(tid){
-		data = {'tender_id':tid}
+	function approvetender(event){
+		tid = event.target.id
+		alert(tid)
+		data = {'tender_id':tid, 'project_id': '{{project[0]}}'}
 		$.ajax({
 			url: "/approvetender",
 			data:  JSON.stringify(data),
 			type: "POST",
 			contentType: 'application/json;charset=UTF-8',
-			success: update_success,
+			success: approved,
 			error: function(error) {
 				console.log(error);
 			}
 		});
+	}
+	function approved(){
+		location.reload();
 	}
 	function placeUpd(){
 		data1 = document.getElementById('wd').value
