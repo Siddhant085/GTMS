@@ -43,6 +43,7 @@ function loadProjectData(data, tab){
 			td = document.createElement('td')
 			a = document.createElement('a')
 			a.href = "/project/title/"+data[i][0]
+			a.id = 'pr'+i
 			if(j>3){
 				d = new Date(Date.parse(data[i][j]))
 				a.appendChild(document.createTextNode(d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()))

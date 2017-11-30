@@ -82,7 +82,6 @@
 	});
 	function approvetender(event){
 		tid = event.target.id
-		alert(tid)
 		data = {'tender_id':tid, 'project_id': '{{project[0]}}'}
 		$.ajax({
 			url: "/approvetender",
@@ -114,7 +113,6 @@
 			mm='0'+mm;
 		} 
 		var today = yyyy+'-'+mm+'-'+dd;
-		alert(today)
 		data = {'percentage':data1, 'delays':data2, 'project':data3, 'date':today}
 		$.ajax({
 			url: "/makeUpdate",
@@ -145,7 +143,6 @@
 			mm='0'+mm;
 		} 
 		var today = yyyy+'-'+mm+'-'+dd;
-		alert(today)
 		data3 = '{{project[0]}}'
 		data = {'est_amt':data1, 'tender_last_date':data2, 'tender_pub_date':today, 'project': data3}
 		$.ajax({
@@ -263,7 +260,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 		<label >Description/Problems faced</label>
 		<input type="text" id="desc"  placeholder="Description">
 	  </div>
-		<input type="button" value="Submit" class="btn btn-default" onclick="placeUpd()"></br></br>
+		<button type="button" id='updbut' class="btn btn-default" onclick="placeUpd()">Submit</button></br></br>
 	 </form>
 	</div>
 	<div style='display:none' id='makeBid' class="container">
@@ -277,7 +274,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			<label >End Date</label>
 			<input type="date" id="enddate" >
 		</div>
-		<input type="button" value="Submit" class="btn btn-default" onclick="placeBid()"></br></br>
+		<button type="button" id='bidbtn' class="btn btn-default" onclick="placeBid()">Submit</button></br></br>
 	  </form>
 	</div>
   
