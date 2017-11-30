@@ -10,54 +10,69 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-	typ = '{{ type|tojson }}'
-	console.log(typ)
+		typ = '{{ type|tojson }}'
+		console.log(typ)
 
-	if(typ=='"aa"'){
-		//display the project status for the admin
-		document.getElementById('updates').style.display = 'block'
-		var tab = document.getElementById('updtable')
-		console.log('{{ updates }}')
-		var data = JSON.parse('{{ updates|tojson|safe }}')
-		console.log(data)
-		for(var i=0; i<data.length; ++i){
-			var tr = document.createElement('tr')
-			for (var j=0; j<3; ++j){
-				var td = document.createElement('td')
-				td.appendChild(document.createTextNode(data[i][j]))
-				tr.appendChild(td)
+		if(typ=='"aa"'){
+			//display the project status for the admin
+			document.getElementById('updates').style.display = 'block'
+			var tab = document.getElementById('updtable')
+			console.log('{{ updates }}')
+			var data = JSON.parse('{{ updates|tojson|safe }}')
+			console.log(data)
+			for(var i=0; i<data.length; ++i){
+				var tr = document.createElement('tr')
+				for (var j=0; j<3; ++j){
+					var td = document.createElement('td')
+					td.appendChild(document.createTextNode(data[i][j]))
+					tr.appendChild(td)
+				}
+				tab.appendChild(tr)
 			}
-			tab.appendChild(tr)
 		}
-	}
-	else if(typ=='"aw"'){
-		//display the tenders page for the admin
-		document.getElementById('tenders').style.display = 'block'
-		var tab = document.getElementById('tentable')
-		console.log('{{ tenders }}')
-		var data = JSON.parse('{{ tenders|tojson|safe }}')
-		console.log(data)
-		for(var i=0; i<data.length; ++i){
-			var tr = document.createElement('tr')
-			for (var j=0; j<4; ++j){
-				var td = document.createElement('td')
-				td.appendChild(document.createTextNode(data[i][j]))
-				tr.appendChild(td)
+		else if(typ=='"aw"'){
+			//display the tenders page for the admin
+			document.getElementById('tenders').style.display = 'block'
+			var tab = document.getElementById('tentable')
+			console.log('{{ tenders }}')
+			var data = JSON.parse('{{ tenders|tojson|safe }}')
+			console.log(data)
+			for(var i=0; i<data.length; ++i){
+				var tr = document.createElement('tr')
+				for (var j=0; j<4; ++j){
+					var td = document.createElement('td')
+					td.appendChild(document.createTextNode(data[i][j]))
+					tr.appendChild(td)
+				}
+				tab.appendChild(tr)
 			}
-			tab.appendChild(tr)
 		}
-	}
-	else if(typ=='"ca"'){
-		//form for updates being displayed
-		document.getElementById('makeupd').style.display = 'block'
-		
-	}
-	else if(typ=='"cw"'){
-		//Display make bid page for the contractor
-		
-	}
-	else{
-		//a normal user (not logged in) 
+		else if(typ=='"ca"'){
+			//form for updates being displayed
+			document.getElementById('makeupd').style.display = 'block'
+			
+		}
+		else if(typ=='"cw"'){
+			//Display make bid page for the contractor
+			document.getElementById('makeBid').style.display = 'block'
+		}
+		else{
+			//a normal user (not logged in) 
+			document.getElementById('updates').style.display = 'block'
+			var tab = document.getElementById('updtable')
+			console.log('{{ updates }}')
+			var data = JSON.parse('{{ updates|tojson|safe }}')
+			console.log(data)
+			for(var i=0; i<data.length; ++i){
+				var tr = document.createElement('tr')
+				for (var j=0; j<3; ++j){
+					var td = document.createElement('td')
+					td.appendChild(document.createTextNode(data[i][j]))
+					tr.appendChild(td)
+				}
+				tab.appendChild(tr)
+			}
+		}
 	});
 	
 	function placeUpd(){
@@ -77,8 +92,40 @@
 		});
 	
 	}
+	
+	function placeBid(){
+		data1 = document.getElementById('amt').value
+		data2 = document.getElementById('enddate').value
+		
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+
+		var yyyy = today.getFullYear();
+		if(dd<10){
+			dd='0'+dd;
+		} 
+		if(mm<10){
+			mm='0'+mm;
+		} 
+		var today = dd+'/'+mm+'/'+yyyy;
+		alert(today)
+		data3 = '{{project[0]}}'
+		data = {'est_amt':data1, 'tender_last_date':data2, 'tender_pub_date':today, 'project': data3}
+		$.ajax({
+			url: "/makeBid",
+			data:  JSON.stringify(data),
+			type: "POST",
+			contentType: 'application/json;charset=UTF-8',
+			success: update_success,
+			error: function(error) {
+				console.log(error);
+			}
+		});
+	
+	}
 	function update_success(){
-		alert("ADDED update")
+		alert("ADDED")
 	}
 </script>
 
@@ -197,8 +244,22 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 		<input type="text" id="desc"  placeholder="Description">
 	  </div>
 		<input type="button" value="Submit" class="btn btn-default" onclick="placeUpd()"></br></br>
+	 </form>
 	</div>
-  
+	<div style='display:none' id='makeBid' class="container">
+	<h3>MAKE PROJECT BIDS</h3>
+	  <form>
+		<div class="form-group">
+			<label for="amount">Est. Amount</label>
+			<input type="text" id="amt"  placeholder="Rupees" >
+		</div>
+		<div class="form-group">
+			<label >End Date</label>
+			<input type="date" id="enddate" >
+		</div>
+		<input type="button" value="Submit" class="btn btn-default" onclick="placeBid()"></br></br>
+	  </form>
+	</div>
   
   <br><br><br>
  
