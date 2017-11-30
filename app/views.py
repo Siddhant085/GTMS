@@ -126,8 +126,7 @@ def disp_project(pname):
 		else:#else send tenders and specify type
 			type='aw'
 			#tenders = Database.
-			result = Database.getTender(pname)
-			return jsonify(result)
+			tenders = Database.getTender(pname)
 			
 	else:
 		if(data[-1]=='a' and Database.pAllocTo(current_user.username,data[1])):
