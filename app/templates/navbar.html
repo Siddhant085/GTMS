@@ -45,7 +45,8 @@
           check.click(function(){window.location="/contractor/"+user_name})
           check.text("Go to the contactor panel")        
       }
-      $("#user_con").append(check)
+      if($("user_con").length != 0)
+        $("#user_con").append(check)
   }
 
   function loggedOut(data){

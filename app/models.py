@@ -155,7 +155,7 @@ class Database():
 
     def getTender(pname):
         cur = mysql.connection.cursor()
-        cur.execute("select * from tender where tender_id in (select tender_id from bidding where project_id in (select project_id form project where title = '"+pname+"'))")
+        cur.execute("select * from tender where tender_id in (select tender_id from bidding where project_id in (select project_id from project where title = '"+pname+"'))")
         data = cur.fetchall()
         if data == None:
             return []
