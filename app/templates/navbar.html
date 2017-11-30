@@ -37,6 +37,7 @@
       $("#user_con").html(con);
       check = $("<button></button>")
 	  check.addClass('btn btn-default')
+	  check.attr('id','goto')
       if(data[1] == "admin"){
           check.click(function(){window.location="/admin"})
           check.text("Go to admin panel")
