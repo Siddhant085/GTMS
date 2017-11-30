@@ -187,6 +187,17 @@ class Database():
         if data is None:
             return []
         return data
+
+    def approveTender(data):
+        cur = mysql.connection.cursor()
+        cur.execute("select project_id from bidding where tender_id = "+str(data['tender_id']))
+        proj = cur.fetchone()[0]
+        print(data['tender_id'])
+        cur.execute("update tender set tender_active = 'r' where tender_id in (select tender_id from bidding where project_id ='"+str(proj)+"')")
+        cur.execute("update project set project_status = 'a' where project_id ="+str(proj))
+        cur.execute("update tender set tender_active='a' where tender_id="+str(data['tender_id']))
+        cur.connection.commit()
+
     
 '''
     def search_by_state(data)

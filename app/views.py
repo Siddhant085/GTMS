@@ -217,4 +217,6 @@ def makeBid():
 @app.route('/approvetender', methods=['POST'])
 def approvetender():
     data = request.get_json()
-	pass
+    Database.approveTender(data)
+    return "Tender approved"
+
