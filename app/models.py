@@ -161,6 +161,24 @@ class Database():
             return []
         return data
 
+    def putUpdate(data,pname):
+        cur = mysql.connection.cursor()
+        cur.execute("select * from project where title='"+pname+"'")
+        data = cur.fetchone()
+        if data is None:
+            return False
+        pid = data[1]
+        cur.execute("insert into update(project_id,date,percentage,delays) values("+pid+","+data['date']+","+data['percentage']+",'"+data['delays']+"')")
+        mysql.connection.commit()
+        return True
+
+    def getUpdate(pname):
+        cur = mysql.connection.cursor()
+        cur.execute("select * from update where project_id in (select project_id from project where title = '"+pname+"')")
+        data = cur.fetchall()
+        if data is None:
+            return []
+        return data
     
 '''
     def search_by_state(data)
