@@ -61,7 +61,9 @@ def logout():
 def home(username):
 	data = Database.getUser(username)
 	print(data)
-	return jsonify(data[1:3])
+	if data[1] == "admin":
+		return jsonify(data[1:3])
+	return jsonify(data[3:5])
 
 @app.route("/search")
 def search():
@@ -133,7 +135,8 @@ def disp_project(pname):
 				type = 'cw'
 			#dont send data but send 'contractor' as type
 	except:
-		pass
+		print("Not logged in")
+		updates = Database.getUpdate(pname)
 	print(type)
 	return render_template('proj_info.html', project = data, type= type,\
                 updates=updates, tenders=tenders)

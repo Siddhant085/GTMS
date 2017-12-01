@@ -1,5 +1,5 @@
 
-path_to_driver = "C:\\Users\\Sahil\\Desktop\\chromedriver"
+path_to_driver = "./chromedriver"
 path_to_driver2 = "C:\\Program\ Files\ (x86)\\Mozilla\ Firefox\\firefox.exe"
 
 

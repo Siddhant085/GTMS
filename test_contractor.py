@@ -1,5 +1,5 @@
 
-path_to_driver = "C:\\Users\\Sahil\\Desktop\\chromedriver"
+path_to_driver = "./chromedriver"
 
 
 import os
